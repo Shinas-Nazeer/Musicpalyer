@@ -7,3 +7,4 @@ coustomFont({double fontSize = 24.0}) {
         fontSize: fontSize);
   }
 
+const krose = Color.fromARGB(255, 241, 81, 183);

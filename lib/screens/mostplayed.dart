@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'currentplaying.dart';
 
 class ScreenMostplayed extends StatelessWidget {
   const ScreenMostplayed({super.key});

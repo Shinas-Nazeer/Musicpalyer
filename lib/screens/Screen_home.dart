@@ -1,9 +1,11 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:mymusicapp/platlist.dart';
-import 'package:mymusicapp/settings.dart';
-import 'package:mymusicapp/songslist.dart';
+import 'package:mymusicapp/screens/Screen_playlist.dart';
+import 'package:mymusicapp/screens/Screen_search.dart';
+import 'package:mymusicapp/widgets/settings.dart';
+import 'package:mymusicapp/widgets/songslist.dart';
+import '../Functions/text.dart';
 
-import 'Functions/text.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,19 +19,20 @@ class _MainScreenState extends State<MainScreen> {
     const Tab(text: 'Songs'),
     const Tab(text: 'Playlist'),
   ];
+    AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.pink,
+          primaryColor: krose,
           tabBarTheme: (const TabBarTheme(
             indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(
               width: 2.0,
-              color: Color.fromARGB(255, 241, 81, 183),
+              color: krose,
             )),
-            labelColor: Color.fromARGB(255, 241, 81, 183),
+            labelColor: krose,
             labelStyle: TextStyle(fontFamily: ('Itim'), fontSize: 23.0),
           ))),
       home: DefaultTabController(
@@ -37,10 +40,25 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
             appBar: AppBar(
               iconTheme: const IconThemeData(
-                  color: Color.fromARGB(255, 241, 81, 183), size: 28.0),
+                  color: krose, size: 28.0),
               centerTitle: true,
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+                IconButton(onPressed: () {
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ScreenSearch(
+                        audioPlayer: audioPlayer,
+                      );
+                    },
+                  ),
+                );
+
+
+
+
+                }, icon: const Icon(Icons.search))
               ],
               elevation: 0,
               backgroundColor: Colors.white,
@@ -50,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
               title:  Text("Music Player",style: coustomFont(fontSize: 23.0) )
             ),
             drawer: const SettingScreen(),
-            body: const TabBarView(children: [Songlist(), PlaylistScreen()])),
+            body:  TabBarView(children: [Songlist(), PlaylistScreen()])),
       ),
     );
   }

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio_background/just_audio_background.dart';
-import 'package:mymusicapp/provider/song_model_provider.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:mymusicapp/screens/Screen_splash.dart';
 
-import 'package:mymusicapp/splashscreen.dart';
-import 'package:provider/provider.dart';
+import 'db/songs.dart';
 
 Future<void> main() async {
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
-    androidNotificationChannelName: 'Audio playback',
-    androidNotificationOngoing: true,
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(AllSongsAdapter());
+  }
+  await Hive.openBox<AllSongs>('AllSongs');
+  await Hive.openBox<List>('Library');
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => SongModelProvider(),
-    child: const Myapp(),
-  ));
+runApp(const Myapp());
+
 }
 
 class Myapp extends StatefulWidget {
@@ -35,7 +34,7 @@ class _MyappState extends State<Myapp> {
 
       ),
       debugShowCheckedModeBanner: false,
-      home: ScreenSplash(),
+      home: const ScreenSplash(),
     );
   }
 }

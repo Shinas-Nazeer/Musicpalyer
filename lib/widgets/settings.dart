@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:mymusicapp/about.dart';
-import 'package:mymusicapp/privaypolicy.dart';
-import 'package:mymusicapp/terms.dart';
-import 'package:mymusicapp/themes.dart';
+import 'package:mymusicapp/screens/Screen_about.dart';
+
+import 'package:mymusicapp/widgets/privaypolicy.dart';
+import 'package:mymusicapp/screens/Screen_terms.dart';
+
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
