@@ -52,28 +52,26 @@ class Favourites {
       required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         duration: const Duration(seconds: 1),
-        backgroundColor: Colors.red,
+        backgroundColor: krose,
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               message,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
+              style: coustomFont(fontSize: 15, fontcolor: Colors.white)
+              
             ),
             Text(
               songName,
-              style: const TextStyle(
-                fontSize: 13,
-              ),
+              style: coustomFont(fontSize: 13, fontcolor: Colors.white)
+              
             ),
           ],
         ),

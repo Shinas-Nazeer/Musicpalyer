@@ -8,7 +8,6 @@ import 'package:mymusicapp/screens/favouritepage.dart';
 import '../db/functins/db_functions.dart';
 import '../db/songs.dart';
 import '../screens/Screen_createdplaylist.dart';
-import '../screens/mostplayed.dart';
 
 class CoutomPlaylist extends StatelessWidget {
   const CoutomPlaylist ({super.key, required this.playlistName});

@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../Functions/text.dart';
+
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     Key? key,
@@ -18,7 +20,7 @@ class CustomIconButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(
         icon,
-        color: Colors.black,
+        color: krose,
         size: 30,
       ),
     );

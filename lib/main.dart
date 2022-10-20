@@ -4,6 +4,7 @@ import 'package:mymusicapp/screens/Screen_splash.dart';
 
 import 'db/songs.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

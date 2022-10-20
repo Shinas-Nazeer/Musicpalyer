@@ -5,6 +5,10 @@
 
 
 import 'package:flutter/material.dart';
+
+import '../Functions/functions.dart';
+import '../Functions/text.dart';
+import '../screens/Screen_createdplaylist.dart';
 class CreatedPlaylist extends StatelessWidget {
   const CreatedPlaylist({
     Key? key,
@@ -20,8 +24,31 @@ class CreatedPlaylist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(padding:const EdgeInsets.all(8.0),
     child: ListTile(
-      title: Text(playlistName),
+       shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                  width: 1, color: Color.fromARGB(255, 241, 81, 183)),
+              borderRadius: BorderRadius.circular(20)),
+               onLongPress: () {
+        showPlaylistDeleteAlert(context: context, key: playlistName);
+      },
+              onTap: () {
+                 Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => ScreenCreatedPlaylist(
+              playlistName: playlistName,
+            ),
+          ),
+        );
+                
+              },
+      title: Text(playlistName,
+      
+      style: coustomFont(fontSize: 14)),
     ),
+
+
+
     
      );
     
@@ -30,6 +57,10 @@ class CreatedPlaylist extends StatelessWidget {
 
   }
 }
+
+
+
+
 
 
 

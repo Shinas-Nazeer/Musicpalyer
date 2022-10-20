@@ -23,6 +23,7 @@ class ScreenFavourites extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          color: krose,
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
@@ -45,8 +46,9 @@ class ScreenFavourites extends StatelessWidget {
             List<AllSongs> songList =
                 playlistBox.get(playlistName)!.toList().cast<AllSongs>();
             return (songList.isEmpty)
-                ? const Center(
-                    child: Text('No Songs Found'),
+                ? Center(
+                    child: Text('No Songs Found',
+                    style: coustomFont(fontSize: 15),),
                   )
                 : ListView.builder(
                     itemCount: songList.length,

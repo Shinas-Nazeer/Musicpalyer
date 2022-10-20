@@ -20,84 +20,70 @@ class ScreenSplash extends StatefulWidget {
 
 class _ScreenSplashState extends State<ScreenSplash> {
   
-  Box<List> librarysongbox = getlibrarybox();
-  Box<AllSongs> allSongsBox = getSongBox();
+  OnAudioQuery audioQuery = OnAudioQuery();
 
+  Box<List> playlistBox = getlibrarybox();
+  Box<AllSongs> songBox = getSongBox();
 
-  
-
-List<SongModel> onAudioQuerysongs = []; //for first fetched song
-  List<SongModel> sortedsongs = []; //for after sorted
-  List<List> likedsongs = []; //for liked screen value
-  List<List> recentsongs = []; //for recenlyplayed
-  List<List> mostplaed = [];
-
-
-  
-
-  final audioQuery = OnAudioQuery();
-
-
+  List<SongModel> deviceSongs = [];
+  List<SongModel> fetchedSongs = [];
 
   @override
   void initState() {
-     requestPermission();
-     songfetchngfuction();
-     super.initState();
-     gotoScreenHome(context);
-    
-    
-  }
-  void requestPermission() async{
-   await Permission.storage.request();
+    requestPermission();
+    fetchSongs();
+    super.initState();
+    gotoScreenHome(context);
   }
 
- Future songfetchngfuction() async {
-    onAudioQuerysongs = await audioQuery.querySongs(
-      sortType: SongSortType.DATE_ADDED,
+  Future<void> requestPermission() async {
+    await Permission.storage.request();
+  }
+
+  Future fetchSongs() async {
+    deviceSongs = await audioQuery.querySongs(
+      sortType: SongSortType.TITLE,
       orderType: OrderType.ASC_OR_SMALLER,
-      ignoreCase: true,
       uriType: UriType.EXTERNAL,
+      ignoreCase: true,
     );
-    //for sorting the song
-    for (var song in onAudioQuerysongs) {
+
+    for (var song in deviceSongs) {
       if (song.fileExtension == 'mp3') {
-        sortedsongs.add(song);
+        fetchedSongs.add(song);
       }
     }
-    //for adding to hive of all songs
-    for (var audio in sortedsongs) {
+
+    for (var audio in fetchedSongs) {
       final song = AllSongs(
         id: audio.id.toString(),
         songname: audio.displayNameWOExt,
-        path: audio.uri!,
         songartist: audio.artist!,
+        path: audio.uri!,
       );
-      await allSongsBox.put(song.id, song);
+      await songBox.put(audio.id, song);
     }
-    getlikedsongs();
-    getrecentplaylist();
-    getmostplaed();
+    //create a Favourite songs if it is not created
+    getFavSongs();
+    getRecentSongs();
+    getMostPlayedSongs();
   }
 
-  //for add fav song
-  getlikedsongs() async {
-    if (!librarysongbox.keys.contains('Likedsong')) {
-      await librarysongbox.put('Likedsong', likedsongs);
+  Future getFavSongs() async {
+    if (!playlistBox.keys.contains('Favourites')) {
+      await playlistBox.put('Favourites', []);
     }
   }
 
-//for recentsong
-  getrecentplaylist() async {
-    if (!librarysongbox.keys.contains('Recent')) {
-      await librarysongbox.put('Recent', recentsongs);
+  Future getMostPlayedSongs() async {
+    if (!playlistBox.keys.contains('Most Played')) {
+      await playlistBox.put('Most Played', []);
     }
   }
-  //for mostplaed
 
-  getmostplaed() async {
-    if (!librarysongbox.keys.contains('Mostplayed')) {
-      await librarysongbox.put('Mostplayed', mostplaed);
+  Future getRecentSongs() async {
+    if (!playlistBox.keys.contains('Recent')) {
+      await playlistBox.put('Recent', []);
     }
   }
   
@@ -114,7 +100,7 @@ List<SongModel> onAudioQuerysongs = []; //for first fetched song
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/image/Icon musi cpalyer.png',
+                'assets/image/icon.png',
                 width: 200,
                 height: 200,
               ),

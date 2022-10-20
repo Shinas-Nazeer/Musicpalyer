@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:mymusicapp/Functions/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../Functions/favouritefunction.dart';
+import '../Functions/functions.dart';
+import '../db/songs.dart';
+import '../widgets/coustomicn.dart';
+
 
 
 
@@ -24,17 +29,8 @@ class NowplayingScreen extends StatefulWidget {
 }
 
 class _NowplayingScreenState extends State<NowplayingScreen> {
-    // IconData? favIcon;
-
-
-  // @override
-  // void initState() {
-  //   favIcon = Favourites.isThisFavourite(
-  //     id: widget.id,
-  //   );
-  //   super.initState();
-  // }
-
+   
+  
   bool isPlaying = true;
   bool isLoop = true;
   bool isShuffle = true;
@@ -79,6 +75,7 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -131,15 +128,35 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                   CustomIconButton(
+                    icon: Favourites.isThisFavourite(
+                                  id: myAudio.metas.id!),
+                                  onPressed: (() {
+                                     Favourites.addSongToFavourites(
+                                  context: context,
+                                  id: myAudio.metas.id!,
+                                );
+                                setState(() {
+                                   Favourites.isThisFavourite(
+                                    id: myAudio.metas.id!,
+                                  );
+                                });
+                                  }),
+                   ),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite,
-                          size: 25.0,
-                          color: krose
-                        )),
-                    IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                            final song = AllSongs(
+                                id: myAudio.metas.id!,
+                                songname: myAudio.metas.title!,
+                                songartist: myAudio.metas.artist!,
+                                path: myAudio.path,
+                              );
+                               showPlaylistModalSheet(
+                                context: context,
+                                screenHeight: screenHeight,
+                                song: song,
+                              );
+                        },
                         icon: const Icon(
                           Icons.playlist_add,
                           size: 25.0,

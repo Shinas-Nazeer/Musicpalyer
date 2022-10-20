@@ -1,5 +1,6 @@
   import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mymusicapp/Functions/text.dart';
 
 import '../db/functins/db_functions.dart';
 import '../db/songs.dart';
@@ -67,17 +68,14 @@ class UserPlaylist {
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         duration: const Duration(seconds: 1),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.white,
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               message,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
+              style: coustomFont(fontSize: 20)
             ),
             Text(
               songName,

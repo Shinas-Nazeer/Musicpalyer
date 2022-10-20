@@ -1,17 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mymusicapp/db/songs.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:mymusicapp/screens/miniplayer.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
-
 import '../Functions/favouritefunction.dart';
 import '../Functions/functions.dart';
 import '../Functions/recents.dart';
 import '../Functions/text.dart';
 import '../db/functins/db_functions.dart';
-import '../screens/Screen_nowplaying.dart';
 
 class Songlist extends StatefulWidget {
   const Songlist({super.key});
@@ -26,6 +24,7 @@ class _SonglistState extends State<Songlist> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return ValueListenableBuilder(
         valueListenable: songBox.listenable(),
         builder:
@@ -44,6 +43,10 @@ class _SonglistState extends State<Songlist> {
           return ListView.builder(
             itemBuilder: (context, index) {
               return AllSongsList(
+                onPressed: (() {
+                   log(allSongsList.length.toString());
+                  showPlaylistModalSheet(context: context, screenHeight: screenHeight, song: allSongsList[index]);
+                }),
               audioPlayer: audioPlayer,
               index: index,
               songList: allSongsList,
@@ -79,6 +82,15 @@ class AllSongsList extends StatefulWidget {
 class _AllSongsListState extends State<AllSongsList> {
     Box<AllSongs> songBox = getSongBox();
   Box<List> playlistBox = getlibrarybox();
+
+
+   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      Favourites.isThisFavourite(id: widget.songList[widget.index].id);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -114,6 +126,40 @@ class _AllSongsListState extends State<AllSongsList> {
           style: coustomFont(fontSize: 14.0),
 
         ),
+        trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            padding: const EdgeInsets.only(left: 0),
+            onPressed: widget.onPressed,
+            icon: Icon(
+              widget.icon,
+              color: krose,
+              size: 27,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Favourites.addSongToFavourites(
+                context: context,
+                id: widget.songList[widget.index].id,
+              );
+              setState(() {
+                Favourites.isThisFavourite(
+                  id: widget.songList[widget.index].id,
+                );
+              });
+            },
+            icon: Icon(
+              Favourites.isThisFavourite(
+                id: widget.songList[widget.index].id,
+              ),
+              color: krose,
+              size: 25,
+            ),
+          )
+        ],
+      ),
 
       ),
     );

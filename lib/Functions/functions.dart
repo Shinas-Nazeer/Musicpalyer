@@ -43,7 +43,7 @@ showPlaylistModalSheet({
       builder: (ctx) {
         return Container(
           decoration: BoxDecoration(
-            color: krose,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
           height: screenHeight * 0.55,
@@ -56,15 +56,15 @@ showPlaylistModalSheet({
                 },
                 icon: const Icon(
                   Icons.playlist_add,
-                  color: Colors.red,
+                  color: krose,
                 ),
-                label: const Text(
+                label: Text(
                   'Create Playlist',
-                  style: TextStyle(color: krose),
+                  style: coustomFont(fontSize: 14)
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(10),
-                  backgroundColor: Colors.red,
+                  backgroundColor:Colors.white,
                   shape: const StadiumBorder(),
                 ),
               ),
@@ -76,11 +76,14 @@ showPlaylistModalSheet({
                     keys.removeWhere((key) => key == 'Favourites');
                     keys.removeWhere((key) => key == 'Recent');
                     keys.removeWhere((key) => key == 'Most Played');
+                    keys.removeWhere((key) => key == 'Likedsong');
+                    keys.removeWhere((key) => key == 'Mostplayed');
+
 
                     return Expanded(
                       child: (keys.isEmpty)
-                          ? const Center(
-                              child: Text("No Playlist Found"),
+                          ? Center(
+                              child: Text("No Playlist Found", style: coustomFont(fontSize: 18),),
                             )
                           : ListView.builder(
                               itemCount: keys.length,
@@ -103,11 +106,8 @@ showPlaylistModalSheet({
 
                                       Navigator.pop(context);
                                     },
-                                    leading: const Text(
-                                    "hai",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    title: Text(playlistKey),
+                                    
+                                    title: Text(playlistKey, style: coustomFont(fontSize: 15.0),),
                                   ),
                                 );
                               },
@@ -197,30 +197,27 @@ showPlaylistDeleteAlert({required BuildContext context, required String key}) {
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
+          title: Text(
             'Confirm Deletion',
-            style: TextStyle(color: Colors.red),
+            style: coustomFont(fontSize: 14)
           ),
-          content: const Text(
-            'Do you want to delete this Playlist',
-            style: TextStyle(color: Colors.red
-            ),
+          content:  Text(
+            'Do you want to delete this Playlist ?',
+            style: coustomFont(fontSize: 18)
+            
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text(
+              child: Text(
                 'Cancel',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 15,
-                ),
+                style: coustomFont(fontSize: 15)
               ),
             ),
             TextButton(
@@ -228,12 +225,9 @@ showPlaylistDeleteAlert({required BuildContext context, required String key}) {
                 await playlistBox.delete(key);
                 Navigator.pop(ctx);
               },
-              child: const Text(
+              child:  Text(
                 'OK',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 15,
-                ),
+                style: coustomFont(fontSize: 15.0)
               ),
             ),
           ],
@@ -247,13 +241,13 @@ showSongModalSheet({
   required String playlistKey,
 }) {
   return showModalBottomSheet(
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
     context: context,
     builder: (ctx) {
       final songBox = getSongBox();
       return Container(
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
         height: screenHeight * 0.55,
@@ -262,12 +256,9 @@ showSongModalSheet({
             const SizedBox(
               height: 10,
             ),
-            const Text(
+             Text(
               'Add Songs',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style:coustomFont(fontSize: 16)
             ),
             Expanded(
               child: ValueListenableBuilder(
@@ -298,7 +289,7 @@ showSongModalSheet({
                             nullArtworkWidget: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.asset(
-                                'assets/images/musicHome.png',
+                                'assets/image/icon.png',
                                 fit: BoxFit.cover,
                                 height: 50,
                                 width: 50,
@@ -309,10 +300,8 @@ showSongModalSheet({
                             song.songname,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style:coustomFont(fontSize: 15)
+                            
                           ),
                         ),
                       );
