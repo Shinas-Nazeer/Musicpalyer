@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymusicapp/Functions/text.dart';
 
 import 'package:mymusicapp/screens/Screen_about.dart';
 
@@ -97,7 +98,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   color: Color.fromARGB(255, 241, 81, 183),
                   fontFamily: ('Itim'),
                   fontSize: 20.0)),
-                  trailing: Switch(value: true, onChanged: (_){},
+                  trailing: Switch(
+                    activeColor: krose,
+                    value: true, onChanged: (_){},
                  )
       
         ),
@@ -136,23 +139,23 @@ class _SettingScreenState extends State<SettingScreen> {
           
         ),
 
-          ListTile(
-            minVerticalPadding: 350.0,
+          // ListTile(
+          //   minVerticalPadding: 350.0,
           
-          title: Text("Version",
-          textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: ('Itim'),
-                  fontSize: 20.0)),
-                    subtitle: Text("2.4.6",
-                    textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: ('Itim'),
-                  fontSize: 15.0)),
+          // title: Text("Version",
+          // textAlign: TextAlign.center,
+          //     style: TextStyle(
+          //         color: Colors.grey,
+          //         fontFamily: ('Itim'),
+          //         fontSize: 20.0)),
+          //           subtitle: Text("2.4.6",
+          //           textAlign: TextAlign.center,
+          //     style: TextStyle(
+          //         color: Colors.grey,
+          //         fontFamily: ('Itim'),
+          //         fontSize: 15.0)),
              
-                ),
+          //       ),
        
       ],
     );

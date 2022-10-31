@@ -72,9 +72,11 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
       return element.path == fromPath;
     });
   }
+  PageController? pageController;
 
   @override
   Widget build(BuildContext context) {
+
      final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
@@ -91,7 +93,15 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
           elevation: 0,
           backgroundColor: Colors.white,
         ),
-        body: widget.audioPlayer.builderCurrent(builder: (context, playing) {
+        body: PageView.builder(
+           onPageChanged: (newValue) {
+            widget.audioPlayer.playlistPlayAtIndex(newValue);
+            
+
+          },
+           controller: pageController,
+          scrollDirection: Axis.vertical,
+          itemCount: widget.songList.length, itemBuilder: (BuildContext context, int index) { return widget.audioPlayer.builderCurrent(builder: (context, playing) {
            final myAudio = find(widget.songList, playing.audio.assetAudioPath);
           return Container(
             width: double.infinity,
@@ -159,7 +169,7 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
                         },
                         icon: const Icon(
                           Icons.playlist_add,
-                          size: 25.0,
+                          size: 30.0,
                           color: krose
                         ))
                   ],
@@ -260,6 +270,12 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
               ],
             ),
           );
-        }));
+        }
+        
+        );
+         },
+        )
+        
+        );
   }
 }
