@@ -113,7 +113,7 @@ class _NowplayingScreenState extends State<NowplayingScreen> {
                 ),
                QueryArtworkWidget(id:int.parse(myAudio.metas.id!), type: ArtworkType.AUDIO,
                artworkHeight: 300,artworkWidth: 300,
-               nullArtworkWidget: Image.asset('assets/image/icon.png', width: 300,height: 300,),),
+               nullArtworkWidget: Image.asset('assets/image/launcher.png', width: 300,height: 300,),),
                 const SizedBox(
                   height: 10.0,
                 ),

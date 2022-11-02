@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mymusicapp/Functions/text.dart';
 
-import 'package:mymusicapp/screens/Screen_about.dart';
+
 
 import 'package:mymusicapp/widgets/privaypolicy.dart';
 import 'package:mymusicapp/screens/Screen_terms.dart';
@@ -19,10 +19,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Drawer(child: getListview(context),
     );
   }
-  Widget getListview(BuildContext context) => ListView(
+  Widget getListview(BuildContext context) 
+  
+  => ListView(
+    
       children:  [
          SizedBox(
           height: 30.0,
@@ -74,12 +78,10 @@ class _SettingScreenState extends State<SettingScreen> {
         
         ),
         ListTile(
-           onTap: (() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AboutScreen()));
-                }),
+           onTap: () {
+            showAboutMe(context: context);
+               
+                },
         
           title: Text("About",
               style: TextStyle(
@@ -130,7 +132,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                       color: Color.fromARGB(255, 241, 81, 183),
                                       fontFamily: ('Itim'),
                                       fontSize: 18.0)),
-                                        Switch(value: true, onChanged: (_){},)
+                                        Switch(
+                                          activeColor: krose,
+                                          value: true, onChanged: (_){},)
                             ],
                           )),
                           
@@ -163,3 +167,37 @@ class _SettingScreenState extends State<SettingScreen> {
 
 }
 
+showAboutMe({required BuildContext context, }){
+  showDialog(context: context, builder: (ctx){
+    return Dialog(
+      child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children:  [
+                  Text(
+                    'About Me',
+                    style:coustomFont(fontSize: 19)
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'This App is designed and developed by Shinas Nazeer',
+                        textAlign: TextAlign.center,
+                        style: coustomFont(fontSize: 15)
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+    );
+
+  });
+}

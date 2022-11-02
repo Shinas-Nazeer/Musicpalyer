@@ -100,11 +100,10 @@ class _ScreenSplashState extends State<ScreenSplash> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/image/icon.png',
-                width: 200,
-                height: 200,
+                'assets/image/launcher.png',
+                
               ),
-              Text("Music Player", style: coustomFont(fontSize: 14))
+              Text("Music Player", style: coustomFont(fontSize: 20))
             ],
           ),
         ),

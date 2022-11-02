@@ -116,7 +116,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     nullArtworkWidget: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        'assets/image/icon.png',
+                        'assets/image/launcher.png',
                         fit: BoxFit.cover,
                         height: 50,
                         width: 50,
